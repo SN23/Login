@@ -1,5 +1,6 @@
 package login;
 
+import java.util.Arrays;
 import javax.swing.JOptionPane;
 
 /**
@@ -9,7 +10,7 @@ import javax.swing.JOptionPane;
 public class LoginPage extends javax.swing.JFrame {
 
     String username;
-    String password;
+    char[] password;
    
     public LoginPage() {
         initComponents();
@@ -24,12 +25,15 @@ public class LoginPage extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPasswordField1 = new javax.swing.JPasswordField();
         loginLabel = new javax.swing.JLabel();
         usernameLabel = new javax.swing.JLabel();
         passwordLabel = new javax.swing.JLabel();
         usernameTextField = new javax.swing.JTextField();
-        passwordTextField = new javax.swing.JTextField();
         loginButton = new javax.swing.JButton();
+        passwordField = new javax.swing.JPasswordField();
+
+        jPasswordField1.setText("jPasswordField1");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -63,8 +67,8 @@ public class LoginPage extends javax.swing.JFrame {
                             .addComponent(passwordLabel, javax.swing.GroupLayout.Alignment.TRAILING))
                         .addGap(36, 36, 36)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(usernameTextField)
-                            .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(usernameTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
+                            .addComponent(passwordField))
                         .addGap(45, 45, 45))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(118, 118, 118)
@@ -83,7 +87,7 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGap(19, 19, 19)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(passwordLabel)
-                    .addComponent(passwordTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(loginButton)
                 .addContainerGap(19, Short.MAX_VALUE))
@@ -95,9 +99,10 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
         username = usernameTextField.getText();
-        password = passwordTextField.getText();
+        password = passwordField.getPassword();
         
-        if(username.equals("user") & password.equals("passwd")){
+        
+        if(username.equals("user") && Arrays.equals(password, "passwd".toCharArray())){
             JOptionPane.showMessageDialog(rootPane, "Login Successful");
         }
         
@@ -143,10 +148,11 @@ public class LoginPage extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
+    private javax.swing.JPasswordField passwordField;
     private javax.swing.JLabel passwordLabel;
-    private javax.swing.JTextField passwordTextField;
     private javax.swing.JLabel usernameLabel;
     private javax.swing.JTextField usernameTextField;
     // End of variables declaration//GEN-END:variables
