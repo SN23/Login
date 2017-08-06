@@ -1,11 +1,16 @@
 package login;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Sukhjinder
  */
 public class LoginPage extends javax.swing.JFrame {
 
+    String username;
+    String password;
+   
     public LoginPage() {
         initComponents();
     }
@@ -88,7 +93,17 @@ public class LoginPage extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        // TODO add your handling code here:
+        
+        username = usernameTextField.getText();
+        password = passwordTextField.getText();
+        
+        if(username.equals("user") & password.equals("passwd")){
+            JOptionPane.showMessageDialog(rootPane, "Login Successful");
+        }
+        
+        else {
+            JOptionPane.showMessageDialog(rootPane, "Invalid Credentials");
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     /**
@@ -120,6 +135,7 @@ public class LoginPage extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new LoginPage().setVisible(true);
             }
