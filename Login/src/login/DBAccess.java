@@ -1,6 +1,7 @@
 package login;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -25,7 +26,7 @@ public class DBAccess {
       {
           int result;
           String valueString = QUOTE + username + QUOTE + "," 
-            + QUOTE + password + QUOTE + ",";
+            + QUOTE + password + QUOTE;
             
           String query=("insert into credentials (USERNAME, PASSWORD) values (" + valueString + ")");
           System.out.println("addUser query is " + query);
@@ -82,7 +83,7 @@ public class DBAccess {
         * @param password
         * @return 
         */
-        public static Boolean updateCar(String username, String newUsername, String password)
+        public static Boolean updateUser(String username, String newUsername, String password)
         {
 
           int result;
@@ -106,5 +107,64 @@ public class DBAccess {
         
         
         
+      /**
+       * Builds a user object
+       * If no user is created, will return null
+       * If SQLException occurs, exception is logged (returns null)
+       * @param rs a ResultSet
+       * @return 
+       */
+      private static User buildUser(ResultSet rs)
+      {       
+         try{   
+            
+                String username = rs.getString("USERNAME");
+                String password = rs.getString("PASSWORD");
+                
+                User user = new User();
+                user.setUsername(username);
+                user.setPassword(password);
+                
+                return user;
+         }
+         catch(SQLException sql){
+             return null;
+         }
+         
+      }  
+       
+      
+      
+      /**
+       * Searches for a user by username
+       * If SQLException is caught, exception is logged
+       * @param username of user
+       * @return ArrayList of cars
+       */
+        public static User retrieveUser(String username) {
+          
+          User user = new User();
+          String query = ("select credentials.*"
+                  + "from credentials "
+                  + "where credentials.USERNAME = "+QUOTE+ username + QUOTE);
+          
+          System.out.println("retrieveByVIN query= " + query);
+          try{
+          conn = DBConnection.getMyConnection();
+              try (Statement stmt = conn.createStatement()) {
+                  ResultSet rs = stmt.executeQuery(query);
+                  if (!rs.next())
+                      user = null;   //no matching user found
+                  else{
+                      user = buildUser(rs);
+                  }   
+              }
+          }
+          catch (SQLException sql){
+              return null;
+          }
+          
+          return user;
+      }     
         
 }
