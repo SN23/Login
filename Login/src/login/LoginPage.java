@@ -33,6 +33,7 @@ public class LoginPage extends javax.swing.JFrame {
         passwordField = new javax.swing.JPasswordField();
         changePasswordButton = new javax.swing.JButton();
         createAccountButton = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +65,13 @@ public class LoginPage extends javax.swing.JFrame {
             }
         });
 
+        jButton2.setText("Delete Account");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -71,7 +79,7 @@ public class LoginPage extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap(59, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(loginLabel)
                             .addGap(160, 160, 160))
@@ -90,11 +98,12 @@ public class LoginPage extends javax.swing.JFrame {
                         .addGroup(layout.createSequentialGroup()
                             .addGap(2, 2, 2)
                             .addComponent(changePasswordButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(25, 25, 25)
+                            .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addContainerGap()))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(2, 2, 2)
-                        .addComponent(createAccountButton, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                        .addComponent(jButton2)
+                        .addGap(122, 122, 122))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +124,9 @@ public class LoginPage extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(changePasswordButton)
                     .addComponent(createAccountButton))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jButton2)
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,15 +138,24 @@ public class LoginPage extends javax.swing.JFrame {
         password = passwordField.getPassword();
         
         
-        User user = DBAccess.retrieveUser(username);
+        User user; 
 
-        if(Arrays.equals(password, user.getPassword().toCharArray())){
-            JOptionPane.showMessageDialog(rootPane, "Login Successful");
+        if((user = DBAccess.retrieveUser(username))!=null){
+         
+            if(Arrays.equals(password, user.getPassword().toCharArray())){
+                JOptionPane.showMessageDialog(rootPane, "Login Successful");
+            }
+            
+            else {
+                JOptionPane.showMessageDialog(rootPane, "Invalid Credentials");
+            }
         }
         
         else {
             JOptionPane.showMessageDialog(rootPane, "Invalid Credentials");
         }
+        
+        clearFields();
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void changePasswordButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_changePasswordButtonActionPerformed
@@ -148,6 +168,15 @@ public class LoginPage extends javax.swing.JFrame {
        createAccountPage.setVisible(true);
     }//GEN-LAST:event_createAccountButtonActionPerformed
 
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+       DeleteAccountPage deleteAccountPage = new DeleteAccountPage();
+       deleteAccountPage.setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    public void clearFields(){
+        usernameTextField.setText("");
+        passwordField.setText("");
+    }
     /**
      * @param args the command line arguments
      */
@@ -187,6 +216,7 @@ public class LoginPage extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton changePasswordButton;
     private javax.swing.JButton createAccountButton;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton loginButton;
     private javax.swing.JLabel loginLabel;
     private javax.swing.JPasswordField passwordField;
