@@ -58,7 +58,7 @@ public class DBAccess {
           int result;
           
           String query = "delete from credentials where username= "+QUOTE+username+QUOTE;
-          System.out.println("delete from car query= " + query);
+          System.out.println("delete from credentials query= " + query);
           try{
           conn = DBConnection.getMyConnection();
           Statement stmt = conn.createStatement();
@@ -75,23 +75,23 @@ public class DBAccess {
      
         
       /**
-        * Updates the users credentials
+        * Updates the users password
         * If no user is found will return false
         * If SQLException occurs, exception is logged (returns false)
         * @param username
-        * @param newUsername
+        * @param newPassword
         * @param password
         * @return 
         */
-        public static Boolean updateUser(String username, String newUsername, String password)
+        public static Boolean changePassword(String username, String password, String newPassword)
         {
 
           int result;
           
           String query = ("UPDATE credentials "
-                  + "SET USERNAME =" + QUOTE + newUsername + QUOTE + ", PASSWORD =" + QUOTE + password  
-                  + "WHERE USERNAME =" + QUOTE + username + QUOTE );
-          System.out.println("update car query= " + query);
+                  + "SET PASSWORD = " + QUOTE + newPassword + QUOTE 
+                  + "WHERE USERNAME = " + QUOTE + username + QUOTE );
+          System.out.println("update credentials query= " + query);
           try{
           conn = DBConnection.getMyConnection();
           Statement stmt = conn.createStatement();
@@ -139,7 +139,7 @@ public class DBAccess {
        * Searches for a user by username
        * If SQLException is caught, exception is logged
        * @param username of user
-       * @return ArrayList of cars
+       * @return 
        */
         public static User retrieveUser(String username) {
           
