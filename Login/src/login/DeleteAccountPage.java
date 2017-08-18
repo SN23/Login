@@ -1,7 +1,7 @@
 package login;
 
-import java.util.Arrays;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -97,7 +97,7 @@ public class DeleteAccountPage extends javax.swing.JFrame {
         
         User user = DBAccess.retrieveUser(username);
         
-        if(user != null && Arrays.equals(password, user.getPassword().toCharArray())){
+        if(user != null && BCrypt.checkpw(String.valueOf(password), user.getPassword())== true){
             if(DBAccess.deleteUser(username)== true){
                 JOptionPane.showMessageDialog(rootPane, "Account Deleted");
             }
