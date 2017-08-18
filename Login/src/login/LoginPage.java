@@ -1,7 +1,7 @@
 package login;
 
-import java.util.Arrays;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -135,14 +135,12 @@ public class LoginPage extends javax.swing.JFrame {
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
         
         username = usernameTextField.getText();
-        password = passwordField.getPassword();
-        
-        
+        password = passwordField.getPassword();        
         User user; 
 
         if((user = DBAccess.retrieveUser(username))!=null){
          
-            if(Arrays.equals(password, user.getPassword().toCharArray())){
+            if(BCrypt.checkpw(String.valueOf(password), user.getPassword())== true){
                 JOptionPane.showMessageDialog(rootPane, "Login Successful");
             }
             
