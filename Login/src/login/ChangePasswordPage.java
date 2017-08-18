@@ -1,7 +1,7 @@
 package login;
 
-import java.util.Arrays;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 
 /**
@@ -13,6 +13,7 @@ public class ChangePasswordPage extends javax.swing.JFrame {
     String username;
     char[] password;
     char[] newPassword;
+    String passwordHash;
     
     public ChangePasswordPage() {
         initComponents();
@@ -110,18 +111,18 @@ public class ChangePasswordPage extends javax.swing.JFrame {
         username = usernameTextField.getText();
         password = PasswordField.getPassword();
         newPassword = newPasswordField.getPassword();
+        passwordHash = BCrypt.hashpw(String.valueOf(newPassword), BCrypt.gensalt());
         
         User user = DBAccess.retrieveUser(username);
         
-        if(user != null && Arrays.equals(password, user.getPassword().toCharArray())){
-            if(DBAccess.changePassword(username, String.valueOf(password), String.valueOf(newPassword)) == true){
+        if(user != null && BCrypt.checkpw(String.valueOf(password), user.getPassword())== true){
+            if(DBAccess.changePassword(username, String.valueOf(password), passwordHash) == true){
                 JOptionPane.showMessageDialog(rootPane, "Password Changed");
             }
             
             else{
                 JOptionPane.showMessageDialog(rootPane, "Error changing password");
             }
-            
         }
         
         else{
