@@ -1,6 +1,7 @@
 package login;
 
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -10,6 +11,7 @@ public class CreateAccountPage extends javax.swing.JFrame {
 
     String username;
     char[] password;
+    String passwordHash;
     
     public CreateAccountPage() {
         initComponents();
@@ -41,6 +43,12 @@ public class CreateAccountPage extends javax.swing.JFrame {
         usernameLabel.setText("Username");
 
         passwordLabel.setText("Password");
+
+        passwordField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordFieldActionPerformed(evt);
+            }
+        });
 
         createAccountButton.setText("Create Account");
         createAccountButton.addActionListener(new java.awt.event.ActionListener() {
@@ -98,6 +106,7 @@ public class CreateAccountPage extends javax.swing.JFrame {
         
         username = usernameTextField.getText();
         password = passwordField.getPassword();
+        passwordHash = BCrypt.hashpw(String.valueOf(password), BCrypt.gensalt());
         
         User user = DBAccess.retrieveUser(username);
         
@@ -106,12 +115,14 @@ public class CreateAccountPage extends javax.swing.JFrame {
         }
         
         else{
-            DBAccess.addUser(username, String.valueOf(password));
+            DBAccess.addUser(username, passwordHash);
             JOptionPane.showMessageDialog(rootPane, "Account Created");
         }
-        
-
     }//GEN-LAST:event_createAccountButtonActionPerformed
+
+    private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_passwordFieldActionPerformed
 
     /**
      * @param args the command line arguments
