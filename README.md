@@ -9,4 +9,8 @@ Allows a user to
 
 The username and password are stored in a MySQL database and the password is hashed and salted using JBCrypt.
 
-<img src= "https://github.com/SN23/Login/blob/master/Screenshots/LoginDemo.gif?raw=true" >
+<img src= "https://github.com/SN23/Login/blob/master/Screenshots/MySQL.PNG?raw=true" />
+
+<h4>Demo</h4>
+
+<img src= "https://github.com/SN23/Login/blob/master/Screenshots/LoginDemo.gif?raw=true" />
