@@ -17,6 +17,7 @@ public class ChangePasswordPage extends javax.swing.JFrame {
     
     public ChangePasswordPage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

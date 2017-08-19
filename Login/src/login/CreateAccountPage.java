@@ -15,6 +15,7 @@ public class CreateAccountPage extends javax.swing.JFrame {
     
     public CreateAccountPage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

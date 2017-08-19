@@ -14,6 +14,7 @@ public class DeleteAccountPage extends javax.swing.JFrame {
     
     public DeleteAccountPage() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
